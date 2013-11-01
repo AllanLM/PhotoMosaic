@@ -29,16 +29,17 @@ To Do List
       cell in the target image grid.
     - The target image and library folder images are currently all squared for easy 
       processing; the program should allow and handle rectangular images.
-    - The target image grid is currently restricted to n x n cells; the program should allow 
-      for m x n cells where appropriate.
-    - The algorithm currently only handles three image channels; it should handle between 1 
-      and 4.
-    - The algorithm allows a library image to appear more than once in the photomosaic; each 
-      library image should appear between 0 and 2 times in the photomosaic.
+    - The target image grid is currently restricted to n x n cells; the program should 
+      allow for m x n cells where appropriate.
+    - The algorithm currently only handles three image channels; it should handle between
+      1 and 4.
+    - The algorithm allows a library image to appear more than once in the photomosaic;
+      each library image should appear between 0 and 2 times in the photomosaic.
 
-- Replace "Select Input Folder" button with a panel where the user can add individual images, 
-  as well as folders full of images. The panel will include a scrollable list and a preview 
-  image box. Right-click on an image name in the list to remove it from the list.
+- Replace "Select Input Folder" button with a panel where the user can add individual 
+  images, as well as folders full of images. The panel will include a scrollable list 
+  and a preview image box. Right-click on an image name in the list to remove it from 
+  the list.
 
 - If selecting a folder of input images, provide option to add all sub-folders as well.
 
@@ -54,7 +55,7 @@ Change Log
 01-Nov-2013
     - Fixed exception when clicking the Clear Mosaic button more than once
     - Error message displayed if input image is invalid instead of exception
-    - Error message displayed if input folder does not contain any valid images instead of 
-      exception
+    - Error message displayed if input folder does not contain any valid images instead
+      of exception
     - List of input images is reset before processing so that multiple jobs can be run 
       properly
