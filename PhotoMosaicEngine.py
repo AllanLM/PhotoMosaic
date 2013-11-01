@@ -4,6 +4,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import math
+import os.path
 from os import listdir, remove
 from os.path import isfile, join
 from PIL import Image, ImageStat
@@ -50,6 +51,7 @@ class PhotoMosaicEngine:
 
     # Find all valid image files in the specified input folder.
     def findInputFolderImages(self):
+        del self.inputFolderImages[:]
         inputFolderFiles = [ f for f in listdir(self.inputFolder) if isfile(join(self.inputFolder,f)) ]
         for inputFolderFile in inputFolderFiles:
             try:
@@ -59,6 +61,7 @@ class PhotoMosaicEngine:
                 self.inputFolderImages.append(pmInputImage)
             except:
                 continue
+        return len(self.inputFolderImages)
             
     # Make each of the library images square.
     def squareInputFolderImages(self):
@@ -97,14 +100,18 @@ class PhotoMosaicEngine:
         self.outputImage.save(self.outputImageFilename)        
 
     def generateMosaic(self):
-        self.outputImageFilename = "outputImage.jpg"
-
         # Most of these steps can be combined, but I've left them separate to
         # make the process clearer.
         self.findInputImage()
         self.squareInputImage()
 
-        self.findInputFolderImages()
+        numInputFolderImages = self.findInputFolderImages()
+        if (numInputFolderImages == 0):
+            md = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR, gtk.BUTTONS_CLOSE, "Input folder does not contain any valid images.")
+            md.run()
+            md.destroy()
+            return
+
         self.squareInputFolderImages()
         self.calcInputFolderImagesAverageRGB()
 
@@ -113,11 +120,14 @@ class PhotoMosaicEngine:
         self.calcInputImageGridAverageRGB()
 
         self.matchInputFolderImagesToInputImageGrid()
+
+        self.outputImageFilename = "outputImage.jpg"
         self.stitchMosaicTogether()
 
     # Delete the generated photomosaic.
     def deleteOutput(self):
-        remove(self.outputImageFilename)
+        if (os.path.isfile(self.outputImageFilename)):
+            remove(self.outputImageFilename)
         self.outputImage = None
 
     # Save the generated photomosaic.

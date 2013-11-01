@@ -1,10 +1,8 @@
 PhotoMosaic
-===========
 
 Experimental Python application to generate photo mosaics
 
-Directions
-----------
+Directions:
 
 1. Run PhotoMosaicApp.py.
 2. Click the "Select Input Image" button and select a target image. The target image is 
@@ -16,8 +14,11 @@ Directions
 6. Click "Clear Mosaic" to delete the photomosaic, or click "Save Mosaic" to specify a 
    location and filename to save the photomosaic.
 
-To Do List
-----------
+To Do List:
+
+- Error handling
+    - User selects an invalid target image
+    - Image library folder contains 0 valid images
 
 - Input Images and Mosaic Results frames should not change size when images are added
 
@@ -40,21 +41,10 @@ To Do List
   as well as folders full of images. The panel will include a scrollable list and a preview 
   image box. Right-click on an image name in the list to remove it from the list.
 
-- If selecting a folder of input images, provide option to add all sub-folders as well.
-
-- Add command line prompt support (no GUI).
-
 - Use terminology "target image" and "library images" throughout the code for clarity.
 
 - Improve format and substance of comments.
 
-Change Log
-----------
-
-01-Nov-2013
-    - Fixed exception when clicking the Clear Mosaic button more than once
-    - Error message displayed if input image is invalid instead of exception
-    - Error message displayed if input folder does not contain any valid images instead of 
-      exception
-    - List of input images is reset before processing so that multiple jobs can be run 
-      properly
+Fixed this round:
+- Fixed exception when clicking the Clear Mosaic button more than once
+- List of input images is reset before processing

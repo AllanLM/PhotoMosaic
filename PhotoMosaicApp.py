@@ -23,7 +23,18 @@ class PhotoMosaicApp:
         if selectedFileName != '':
             self.photoMosaicEngine.inputImageFilename = selectedFileName
             self.lblInputFilename.set_text("Input File: " + self.photoMosaicEngine.inputImageFilename)
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(self.photoMosaicEngine.inputImageFilename, 600, 400)
+            try:
+                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(self.photoMosaicEngine.inputImageFilename, 600, 400)
+            except:
+                self.lblInputFilename.set_text("Input File: <not yet selected>")
+                pixbufin = gtk.gdk.pixbuf_new_from_file_at_size("defaultInputImage.jpg", 600, 400)
+                self.inputImage.set_from_pixbuf(pixbufin)
+                self.btnStartProcess.set_sensitive(False)
+                md = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR, gtk.BUTTONS_CLOSE, "Error loading input image " + selectedFileName + ".");
+                md.run()
+                md.destroy()
+                selectedFileName = ''
+                return
             self.inputImage.set_from_pixbuf(pixbuf)
             if self.photoMosaicEngine.inputImageFilename != "" and self.photoMosaicEngine.inputFolder != '':
                 self.btnStartProcess.set_sensitive(True)
@@ -44,7 +55,10 @@ class PhotoMosaicApp:
     def startProcess_cb(self, widget, data=None):
         self.photoMosaicEngine.generateMosaic()
         if self.photoMosaicEngine.outputImageFilename != "":
-            pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(self.photoMosaicEngine.outputImageFilename, 600, 400)
+            try:
+                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(self.photoMosaicEngine.outputImageFilename, 600, 400)
+            except:
+                return
             self.outputImage.set_from_pixbuf(pixbuf)
             self.btnClearOutput.set_sensitive(True)
             self.btnSaveOutput.set_sensitive(True)
@@ -54,6 +68,7 @@ class PhotoMosaicApp:
         self.photoMosaicEngine.deleteOutput()
         pixbuf = gtk.gdk.pixbuf_new_from_file_at_size("defaultOutputImage.jpg", 600, 400)
         self.outputImage.set_from_pixbuf(pixbuf)
+        self.btnClearOutput.set_sensitive(False)
         self.btnSaveOutput.set_sensitive(False)
 
     # Save the generated photomosaic with a user-specified filename.
