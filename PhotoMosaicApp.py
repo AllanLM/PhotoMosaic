@@ -83,7 +83,7 @@ class PhotoMosaicApp:
         self.inputImage = gtk.Image()
         pixbufin = gtk.gdk.pixbuf_new_from_file_at_size("defaultInputImage.jpg", 600, 400)
         self.inputImage.set_from_pixbuf(pixbufin)
-        boxLeft.pack_start(self.inputImage, False, False, 10)
+        boxLeft.pack_start(self.inputImage, True, True, 10)
         self.inputImage.show()
         boxInputFilename = gtk.HBox(False, 0)
         self.lblInputFilename = gtk.Label("Input File: <not yet selected>")
@@ -105,7 +105,7 @@ class PhotoMosaicApp:
         boxInputFolder.show()
         frameLeft.add(boxLeft)
         boxLeft.show()
-        self.boxMain.pack_start(frameLeft, False, False, 10)
+        self.boxMain.pack_start(frameLeft, True, True, 10)
         frameLeft.show()
 
     # Draw the output frame on the right side of the application.
@@ -135,7 +135,7 @@ class PhotoMosaicApp:
         boxRightButtons.show()
         frameRight.add(boxRight)
         boxRight.show()
-        self.boxMain.pack_end(frameRight, False, False, 10)
+        self.boxMain.pack_start(frameRight, True, True, 10)
         frameRight.show()
 
     def connectCallBacks(self):
@@ -151,7 +151,7 @@ class PhotoMosaicApp:
         self.window.connect("destroy", self.destroy)
         self.window.set_border_width(10)
 
-        self.boxMain = gtk.HBox(False, 0)
+        self.boxMain = gtk.HBox(True, 0)
         self.drawLeftFrame()
         self.drawRightFrame()
         self.window.add(self.boxMain)

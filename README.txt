@@ -19,8 +19,6 @@ Directions
 To Do List
 ----------
 
-- Input Images and Mosaic Results frames should not change size when images are added
-
 - Process library folder images more efficiently so that the program does not crash when 
   handling a large number of images.
 
@@ -51,6 +49,12 @@ To Do List
 
 Change Log
 ----------
+
+04-Nov-2013
+    - Input Images frame no longer changes size when input image is displayed
+    - Mosaic Results frame no longer changes size when output image is displayed
+    - Location of Input File and Input Folder lines in the Input Images frame no longer
+      change positions when the input image is displayed
 
 01-Nov-2013
     - Fixed exception when clicking the Clear Mosaic button more than once
